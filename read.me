@@ -1,0 +1,77 @@
+第一种实现方式：OpenGLES
+
+1.在moudle.gradle里面导入
+ allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
+然后在dependencies里面添加
+  compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
+
+2.创建布局文件
+<com.zph.glpanorama.GLPanorama
+    android:id="@+id/mGLPanorama"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+</com.zph.glpanorama.GLPanorama>
+
+3.传入全景图
+mGLPanorama.setGLPanorama(R.drawable.imggugong);
+
+第二种实现方式：Google VR
+1.在moudle.gradle里面的dependencies添加依赖
+compile 'com.google.vr:sdk-panowidget:1.80.0'
+
+2.创建布局
+
+<com.google.vr.sdk.widgets.pano.VrPanoramaView
+    android:id="@+id/mVrPanoramaView"
+    android:layout_width="match_parent"
+    android:layout_height="250dip"/>
+
+3.添加权限
+
+ <uses-permission android:name="android.permission.INTERNET"/>
+ <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+ <application
+        android:largeHeap="true"
+
+4.初始化组件
+     PanoramaViewOptions=new VrPanoramaView.Options();
+            PanoramaViewOptions.inputType=VrPanoramaView.Options.TYPE_STEREO_OVER_UNDER;
+            //隐藏全屏模式按钮
+           // mVrPanoramaView.setFullscreenButtonEnabled(false);
+            //隐藏最左边信息的按钮
+            mVrPanoramaView.setInfoButtonEnabled(false);
+            //设置yinc立体模型的按钮
+            mVrPanoramaView.setStereoModeButtonEnabled(false);
+            //设置监听
+            mVrPanoramaView.setEventListener(new ActivityEventListener()---这个是自定义的内部接口);
+            //加载本地的图片资源
+            mVrPanoramaView.loadImageFromBitmap(BitmapFactory.decodeResource(
+                    getResources(),R.drawable.andes
+            ),PanoramaViewOptions);
+
+第三种实现方式：web前端
+
+1.在moudle.gradle里面的dependencies添加依赖
+ compile files('libs/tbs_sdk_thirdapp_v3.3.0.1045_43300.jar')
+
+2.添加权限
+ <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+
+3.Application初始化X5内核
+
+4.创建布局文件
+
+5下载Three.js，导入libs中
+https://threejs.org/
+
+6.编写html文件，然后放在assets目录下
+
+7.activity调用html
